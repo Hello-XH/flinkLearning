@@ -36,10 +36,5 @@ public class FromChangelogStream {
         .print();
 
 
-
-
-
-
-
     }
 }

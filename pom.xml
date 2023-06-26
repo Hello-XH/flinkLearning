@@ -13,123 +13,279 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+        <flink.version>1.14.6</flink.version>
     </properties>
 
     <dependencies>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-clients</artifactId>
-            <version>1.17.0</version>
+            <artifactId>flink-clients_2.11</artifactId>
+            <version>${flink.version}</version>
+            <!--            <exclusions>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.apache.flink</groupId>-->
+            <!--                    <artifactId>flink-shaded-guava</artifactId>-->
+            <!--                </exclusion>-->
+            <!--            </exclusions>-->
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java</artifactId>
-            <version>1.17.0</version>
+            <artifactId>flink-streaming-java_2.11</artifactId>
+            <version>${flink.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.flink</groupId>
+                    <artifactId>flink-shaded-guava</artifactId>
+                </exclusion>
+            </exclusions>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-api-java</artifactId>
-            <version>1.17.0</version>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table-api-java-bridge</artifactId>
-            <version>1.17.0</version>
+            <artifactId>flink-table-api-java-bridge_2.11</artifactId>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka</artifactId>
-            <version>1.17.0</version>
+            <artifactId>flink-connector-kafka_2.11</artifactId>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-files</artifactId>
-            <version>1.17.0</version>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.apache.flink</groupId>-->
-<!--            <artifactId>flink-table-common</artifactId>-->
-<!--            <version>1.17.0</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table-planner_2.12</artifactId>
-            <version>1.17.0</version>
+            <artifactId>flink-table-common</artifactId>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner_2.11</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.flink</groupId>-->
+        <!--            <artifactId>flink-table-planner-blink_2.11</artifactId>-->
+        <!--            <version>${flink.version}</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-csv</artifactId>
-            <version>1.17.0</version>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-json</artifactId>
-            <version>1.17.0</version>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-avro</artifactId>
-            <version>1.17.0</version>
+            <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-connector-mysql-cdc</artifactId>
+            <version>2.3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.flink</groupId>
+                    <artifactId>flink-shaded-guava</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-connector-debezium</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-json</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-shaded-guava</artifactId>
+            <version>30.1.1-jre-15.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-jdbc_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-api</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
+                <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.1.1</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <id>copy-necessary-dependency</id>
+                        <phase>prepare-package</phase><!-- 绑定至prepare-package阶段（打包准备） -->
                         <goals>
-                            <goal>shade</goal>
+                            <goal>unpack</goal><!-- 执行本插件的unpack目标 -->
                         </goals>
                         <configuration>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>com.google.code.findbugs:jsr305</exclude>
-                                </excludes>
-                            </artifactSet>
-                            <filters>
-                                <filter>
-                                    <!-- Do not copy the signatures in the META-INF folder.
-                                    Otherwise, this might cause SecurityExceptions when using the JAR. -->
-                                    <artifact>*:*</artifact>
-<!--                                    <excludes>-->
-<!--                                        <exclude>META-INF/*.SF</exclude>-->
-<!--                                        <exclude>META-INF/*.DSA</exclude>-->
-<!--                                        <exclude>META-INF/*.RSA</exclude>-->
-<!--                                    </excludes>-->
-                                </filter>
-                            </filters>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <!-- Replace this with the main class of your job -->
-                                    <mainClass>my.programs.main.clazz</mainClass>
-                                </transformer>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                            </transformers>
+                            <artifactItems>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-clients_2.11</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-streaming-java_2.11</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-table-api-java</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-table-api-java-bridge_2.11</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-connector-kafka_2.11</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-connector-files</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-table-common</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-table-planner_2.11</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-csv</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-json</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-avro</artifactId>
+                                    <version>${flink.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>com.ververica</groupId>
+                                    <artifactId>flink-connector-mysql-cdc</artifactId>
+                                    <version>2.3.0</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-shaded-guava</artifactId>
+                                    <version>30.1.1-jre-15.0</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.flink</groupId>
+                                    <artifactId>flink-connector-jdbc_2.11</artifactId>
+                                    <version>1.13.6</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>com.ververica</groupId>
+                                    <artifactId>flink-connector-debezium</artifactId>
+                                    <version>2.3.0</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.kafka</groupId>
+                                    <artifactId>connect-json</artifactId>
+                                    <version>2.7.1</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                    <groupId>org.apache.kafka</groupId>
+                                    <artifactId>connect-api</artifactId>
+                                    <version>2.7.1</version>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
