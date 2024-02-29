@@ -7,10 +7,6 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.*;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.apache.flink.types.Row;
-import org.apache.flink.runtime.util.ExecutorThreadFactory;
-
-import java.time.Instant;
 
 public class BatchJdbc2Jdbc {
     public static void main(String[] args) throws Exception {
